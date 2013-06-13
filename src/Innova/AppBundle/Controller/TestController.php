@@ -42,4 +42,43 @@ class TestController extends Controller
 
         return array('htmlTree' => $htmlTree);
     }
+
+    /**
+     * @Route("/test2/")
+     * @Template()
+     */
+    public function test2Action()
+    {
+       
+        $fruits = array (
+            "fruits"  => array("a" => "orange", "b" => "banana", "c" => "apple"),
+            "numbers" => array(1, 2, 3, 4, 5, 6),
+            "holes"   => array("first", 5 => "second", "third")
+        );
+
+        $json =  json_encode($fruits);
+        echo $json;
+
+        return array('json'=>$json);
+    }
+
+
+     /**
+    * @Route("/ajaxSaveTree", name="ajaxSaveTree")
+    * @Method({"POST"})
+    */
+    public function ajaxSaveTreeAction(Request $request)
+    {
+        
+        if ($request->getMethod() == 'POST') {
+            $json = $request->get('json');
+            die($json);
+           
+        }
+
+        $manager = $this->getDoctrine()->getManager();
+        $repository = $manager->getRepository("InnovaLearningPathBundle:Step");
+
+        return array('htmlTree' => $htmlTree);
+    }
 }
